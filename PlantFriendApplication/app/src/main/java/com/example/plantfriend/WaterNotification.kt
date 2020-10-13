@@ -1,24 +1,18 @@
 package com.example.plantfriend
 
-import android.app.PendingIntent
 import android.content.BroadcastReceiver
+import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import java.io.File
+
 
 class WaterNotification : BroadcastReceiver() {
+
     override fun onReceive(context:Context, intent:Intent) {
-        var intentType = intent.extras?.get("Type")
-        if (intentType == "WaterNotification") {
-            waterNotification(context)
-        }
-        if(intentType == "WaterDecrease")
-        {
-            waterDecrease()
-        }
-    }
-    fun waterNotification(context: Context){
         var builder = NotificationCompat.Builder(context!!, "Water")
             .setSmallIcon(R.drawable.plantthirsty)
             .setContentTitle("PlantFriend")
@@ -27,9 +21,5 @@ class WaterNotification : BroadcastReceiver() {
             .setAutoCancel(true)
         var notification = NotificationManagerCompat.from(context)
         notification.notify(0, builder.build())
-    }
-    fun waterDecrease()
-    {
-        MainActivity().timeWaterDecrease()
     }
     }
