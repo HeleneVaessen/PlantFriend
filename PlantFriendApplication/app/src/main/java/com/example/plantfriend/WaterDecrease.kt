@@ -13,7 +13,6 @@ class WaterDecrease: BroadcastReceiver() {
     val fileName = "PlantData"
     lateinit var context: Context
     var file: File? = null
-    var mainActivity: MainActivity? = null
     override fun onReceive(context:Context, intent:Intent) {
 
             file = File(context.filesDir, fileName)
@@ -27,7 +26,7 @@ class WaterDecrease: BroadcastReceiver() {
             if (content?.toInt()!! >= 10) {
                 context.openFileOutput(fileName, Context.MODE_PRIVATE).use {
                     it.write((content?.toInt()!! - 10).toString().toByteArray())
-                    activity!!.updateWaterUI(content?.toInt()!! - 10, context)
+                    MainActivity().updateWaterUI(content?.toInt()!! - 10, context)
                 }
             }
         }
