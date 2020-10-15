@@ -1,20 +1,18 @@
 package com.example.plantfriend
 
+import android.app.Activity
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import java.io.File
 
 class WaterDecrease: BroadcastReceiver() {
-    lateinit var activity:MainActivity
-    fun updateActivity(activity: MainActivity) {
-        this.activity = activity
-    }
     val fileName = "PlantData"
     lateinit var context: Context
     var file: File? = null
+    lateinit var waterLevel: WaterLevel
     override fun onReceive(context:Context, intent:Intent) {
-
+        waterLevel = intent.getSerializableExtra("water") as WaterLevel
             file = File(context.filesDir, fileName)
             this.context = context
             var content: String? = null
@@ -26,8 +24,8 @@ class WaterDecrease: BroadcastReceiver() {
             if (content?.toInt()!! >= 10) {
                 context.openFileOutput(fileName, Context.MODE_PRIVATE).use {
                     it.write((content?.toInt()!! - 10).toString().toByteArray())
-                    MainActivity().updateWaterUI(content?.toInt()!! - 10, context)
                 }
+                waterLevel.water.postValue(content?.toInt()!! - 10)
             }
         }
     }
