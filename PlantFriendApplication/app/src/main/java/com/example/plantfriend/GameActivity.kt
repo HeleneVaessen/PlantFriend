@@ -1,7 +1,6 @@
 package com.example.plantfriend
 
 import android.content.Context
-import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.graphics.Point
 import android.hardware.Sensor
@@ -24,7 +23,7 @@ class GameActivity : AppCompatActivity(), SensorEventListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_game)
-        plant = findViewById(R.id.plantimg)
+        plant = findViewById(R.id.planthappy)
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
         val size = Point()
         val display = windowManager.defaultDisplay
