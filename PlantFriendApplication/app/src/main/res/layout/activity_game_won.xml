@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#4CAF50"
     tools:context=".GameWonActivity">
 
     <View
@@ -71,9 +72,9 @@
         android:id="@+id/imageView10"
         android:layout_width="156dp"
         android:layout_height="140dp"
-        android:layout_marginTop="400dp"
+        android:layout_marginBottom="191dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/grass" />
 
     <ImageView
@@ -81,9 +82,9 @@
         android:layout_width="156dp"
         android:layout_height="140dp"
         android:layout_marginStart="153dp"
-        android:layout_marginTop="400dp"
+        android:layout_marginBottom="191dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/grass" />
 
     <ImageView
@@ -91,45 +92,21 @@
         android:layout_width="156dp"
         android:layout_height="140dp"
         android:layout_marginStart="264dp"
-        android:layout_marginTop="400dp"
+        android:layout_marginBottom="191dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/grass" />
 
     <ImageView
         android:id="@+id/planthappy2"
         android:layout_width="290dp"
         android:layout_height="330dp"
-        android:layout_marginTop="180dp"
-        app:layout_constraintEnd_toStartOf="@+id/view2"
-        app:layout_constraintHorizontal_bias="0.232"
-        app:layout_constraintStart_toEndOf="@+id/imageView2"
-        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginBottom="221dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/view4"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/view4"
         app:srcCompat="@drawable/planthappy" />
-
-    <ImageView
-        android:id="@+id/plantthirsty2"
-        android:layout_width="290dp"
-        android:layout_height="330dp"
-        android:layout_marginTop="192dp"
-        android:visibility="invisible"
-        app:layout_constraintEnd_toStartOf="@+id/view2"
-        app:layout_constraintHorizontal_bias="0.235"
-        app:layout_constraintStart_toEndOf="@+id/imageView2"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/plantthirsty" />
-
-    <ImageView
-        android:id="@+id/plantplay2"
-        android:layout_width="407dp"
-        android:layout_height="377dp"
-        android:layout_marginTop="160dp"
-        android:visibility="invisible"
-        app:layout_constraintEnd_toStartOf="@+id/view2"
-        app:layout_constraintHorizontal_bias="0.287"
-        app:layout_constraintStart_toEndOf="@+id/imageView2"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/plantplay" />
 
     <ImageView
         android:id="@+id/wateringcan2"
@@ -154,9 +131,11 @@
 
     <Button
         android:id="@+id/btnMainActivity"
+        style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="45dp"
+        android:backgroundTint="#4CAF50"
         android:onClick="nextScreen"
         android:text="Continue"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -179,13 +158,13 @@
         android:id="@+id/textView6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="48dp"
         android:text="Game won"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textSize="36sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

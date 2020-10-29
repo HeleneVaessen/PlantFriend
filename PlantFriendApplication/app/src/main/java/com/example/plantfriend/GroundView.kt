@@ -7,10 +7,11 @@ import android.os.Bundle
 import android.util.Log
 import android.view.*
 import androidx.core.content.ContextCompat.startActivity
+import androidx.core.graphics.contains
 import java.io.File
 
 
-class GroundView(context: Context?) : SurfaceView(context), SurfaceHolder.Callback, View.OnTouchListener {
+class GroundView(context: Context?) : SurfaceView(context), SurfaceHolder.Callback {
 
     // ball coordinates
     var cx: Float = 10.toFloat()
@@ -29,7 +30,6 @@ class GroundView(context: Context?) : SurfaceView(context), SurfaceHolder.Callba
     var cloud: Bitmap? = null
     var leaves: Bitmap? = null
     var back: Bitmap? = null
-    var backbutton: Rect? = null
 
     var cloudLocations = java.util.Collections.synchronizedList(mutableListOf<Point>())
     var score = 0
@@ -52,7 +52,6 @@ class GroundView(context: Context?) : SurfaceView(context), SurfaceHolder.Callba
 
     init {
         holder.addCallback(this)
-        setOnTouchListener(this)
         //create a thread
         thread = DrawThread(holder, this)
         jump = true
@@ -70,7 +69,6 @@ class GroundView(context: Context?) : SurfaceView(context), SurfaceHolder.Callba
         cloudLocations.add(Point(Windowwidth / 4, Windowheight / 2))
         picHeight = plant!!.height
         picWidth = plant!!.width
-        backbutton = Rect(600, 0, Windowwidth.toInt(), 200)
 
     }
 
@@ -89,8 +87,6 @@ class GroundView(context: Context?) : SurfaceView(context), SurfaceHolder.Callba
         if (canvas != null) {
             super.draw(canvas)
             canvas.drawRGB(3, 169, 244)
-            var paint = Paint()
-            canvas.drawRect(backbutton!!, paint)
             plant?.let { canvas.drawBitmap(it, cx, cy, null) }
             drawClouds(canvas)
             leaves?.let {
@@ -106,12 +102,16 @@ class GroundView(context: Context?) : SurfaceView(context), SurfaceHolder.Callba
         }
     }
 
-    override fun onTouch(view: View?, event: MotionEvent): Boolean {
-        if (event.getX() > 600 && event.getX() < Windowwidth && event.getY() > 0F && event.getY() < 200) {
-            goBack = true
-            return true
-        } else return false
+
+    override fun onTouchEvent(event: MotionEvent?): Boolean {
+        if(event!!.action == MotionEvent.ACTION_DOWN){
+            if (event.getX() > 600 && event.getX() < Windowwidth && event.getY() > Windowheight-200F && event.getY() < Windowheight) {
+                goBack = true
+                return true
+            } else return false}
+        return super.onTouchEvent(event)
     }
+
 
     fun addClouds() {
         val randomX = List(10) { kotlin.random.Random.nextInt(0, Windowwidth - 450) }
@@ -133,7 +133,7 @@ class GroundView(context: Context?) : SurfaceView(context), SurfaceHolder.Callba
         var paint = Paint()
         paint.setColor(Color.WHITE)
         paint.textSize = 150F
-        canvas?.drawText(score.toString(), 10F, Windowheight-200F, paint)
+        canvas?.drawText(score.toString(), 10F, Windowheight-20F, paint)
     }
 
     fun deleteClouds() {
@@ -256,7 +256,7 @@ class GroundView(context: Context?) : SurfaceView(context), SurfaceHolder.Callba
     val filename = "PlantHappy"
     fun saveScore() {
         context.openFileOutput(this.filename, Context.MODE_PRIVATE).use {
-            it.write(score.toString().toByteArray())
+            it.write((score*5).toString().toByteArray())
         }
     }
 }

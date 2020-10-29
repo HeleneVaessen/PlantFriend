@@ -14,7 +14,7 @@ class HappyNotification : BroadcastReceiver() {
     lateinit var pendingIntent:PendingIntent
 
     override fun onReceive(context: Context, intent: Intent) {
-        pendingIntent= Intent(context, WaterDecrease::class.java).let { intent ->
+        pendingIntent= Intent(context, MainActivity::class.java).let { intent ->
             PendingIntent.getActivity(context, 0, intent, 0)
 
         }
