@@ -10,7 +10,7 @@ import java.io.File
 
 class HappyNotification : BroadcastReceiver() {
     lateinit var nameFile: File
-    val namefileName: String = "PlantHappy"
+    val namefileName: String = "PlantName"
     lateinit var pendingIntent:PendingIntent
 
     override fun onReceive(context: Context, intent: Intent) {
@@ -19,7 +19,7 @@ class HappyNotification : BroadcastReceiver() {
 
         }
         nameFile = File(context.filesDir, namefileName)
-        if (nameFile.exists()) {
+        if (nameFile!!.exists()) {
             var name: String? = null
             context.openFileInput(namefileName).use { stream ->
                 name = stream.bufferedReader().use {
