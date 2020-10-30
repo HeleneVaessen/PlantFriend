@@ -22,7 +22,7 @@ class GameOverActivity : AppCompatActivity() {
                 it.readText()
             }
         }
-        scoretxt?.text= (score!!.toInt().div(5)).toString()+"/20"
+        scoretxt?.text= (score!!.toInt().div(10)).toString()+"/20"
     }
     fun nextScreenGameOver(view: View){
         val intent = Intent(this, MainActivity::class.java).apply {

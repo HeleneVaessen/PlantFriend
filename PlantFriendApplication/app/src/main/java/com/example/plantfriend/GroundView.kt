@@ -242,7 +242,7 @@ class GroundView(context: Context?) : SurfaceView(context), SurfaceHolder.Callba
             }
             startActivity(context, intent, Bundle.EMPTY)
         }
-        if (score >= 20) {
+        if (score >= 10) {
             saveScore()
             val intent = Intent(context, GameWonActivity::class.java).apply {
             }
@@ -256,7 +256,7 @@ class GroundView(context: Context?) : SurfaceView(context), SurfaceHolder.Callba
     val filename = "PlantHappy"
     fun saveScore() {
         context.openFileOutput(this.filename, Context.MODE_PRIVATE).use {
-            it.write((score*5).toString().toByteArray())
+            it.write((score*10).toString().toByteArray())
         }
     }
 }
