@@ -125,7 +125,6 @@ class GroundView(context: Context?) : SurfaceView(context), SurfaceHolder.Callba
             }
             val randomY = kotlin.random.Random.nextInt(500, 900)
             cloudLocations.add(Point(randomX[randomFromList], highestCloud - randomY))
-            score += 1
         }
     }
 
@@ -177,6 +176,7 @@ class GroundView(context: Context?) : SurfaceView(context), SurfaceHolder.Callba
                 jump = true
                 jumpTimer = 0
                 cloudLocations.removeAt(i)
+                score += 1
                 break
             }
         }
