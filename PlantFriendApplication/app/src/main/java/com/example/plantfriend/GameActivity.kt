@@ -2,6 +2,7 @@ package com.example.plantfriend
 
 import android.content.Context
 import android.content.pm.ActivityInfo
+import android.content.res.AssetFileDescriptor
 import android.graphics.Point
 import android.hardware.Sensor
 import android.hardware.SensorEvent
@@ -41,7 +42,18 @@ class GameActivity : AppCompatActivity(), SensorEventListener {
         sensorManager.registerListener(this, sensor, SensorManager.SENSOR_DELAY_GAME)
     }
 
+    override fun onRestart() {
+            ground!!.backgroundplayer.reset()
+            val afd: AssetFileDescriptor = this.assets!!.openFd("game.mp3")
+            ground!!.backgroundplayer.setDataSource(afd.fileDescriptor, afd.startOffset, afd.length)
+            ground!!.backgroundplayer.prepare()
+            ground!!.backgroundplayer.isLooping=true
+            ground!!.backgroundplayer.start()
+        super.onRestart()
+    }
+
     override fun onStop() {
+        ground!!.backgroundplayer.stop()
         sensorManager.unregisterListener(this)
         super.onStop()
     }
@@ -49,6 +61,7 @@ class GameActivity : AppCompatActivity(), SensorEventListener {
     override fun onAccuracyChanged(p0: Sensor?, p1: Int) {
     }
     override fun onPause() {
+        ground!!.backgroundplayer.stop()
         super.onPause()
         sensorManager.unregisterListener(this)
     }

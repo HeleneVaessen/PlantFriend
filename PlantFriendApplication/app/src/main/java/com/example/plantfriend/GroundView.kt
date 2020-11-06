@@ -2,13 +2,15 @@ package com.example.plantfriend
 
 import android.content.Context
 import android.content.Intent
+import android.content.res.AssetFileDescriptor
 import android.graphics.*
+import android.media.MediaPlayer
 import android.os.Bundle
-import android.util.Log
+import android.os.PowerManager
 import android.view.*
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.content.ContextCompat.startActivity
-import androidx.core.graphics.contains
-import java.io.File
+import java.util.*
 
 
 class GroundView(context: Context?) : SurfaceView(context), SurfaceHolder.Callback {
@@ -31,7 +33,7 @@ class GroundView(context: Context?) : SurfaceView(context), SurfaceHolder.Callba
     var leaves: Bitmap? = null
     var back: Bitmap? = null
 
-    var cloudLocations = java.util.Collections.synchronizedList(mutableListOf<Point>())
+    var cloudLocations = Collections.synchronizedList(mutableListOf<Point>())
     var score = 0
     // window size
 
@@ -49,8 +51,15 @@ class GroundView(context: Context?) : SurfaceView(context), SurfaceHolder.Callba
     var jump: Boolean = false
     var jumpTimer: Int = 0
     var goBack = false
-
+    var mediaplayer = MediaPlayer()
+    var backgroundplayer = MediaPlayer()
     init {
+        backgroundplayer.reset()
+        val afd: AssetFileDescriptor = context?.assets!!.openFd("game.mp3")
+        backgroundplayer.setDataSource(afd.fileDescriptor, afd.startOffset, afd.length)
+        backgroundplayer.prepare()
+        backgroundplayer.isLooping =true
+        backgroundplayer.start()
         holder.addCallback(this)
         //create a thread
         thread = DrawThread(holder, this)
@@ -177,6 +186,11 @@ class GroundView(context: Context?) : SurfaceView(context), SurfaceHolder.Callba
                 jumpTimer = 0
                 cloudLocations.removeAt(i)
                 score += 1
+                mediaplayer.reset()
+                val afd: AssetFileDescriptor = context?.assets!!.openFd("jump.mp3")
+                mediaplayer.setDataSource(afd.fileDescriptor, afd.startOffset, afd.length)
+                mediaplayer.prepare()
+                mediaplayer.start()
                 break
             }
         }
@@ -200,11 +214,11 @@ class GroundView(context: Context?) : SurfaceView(context), SurfaceHolder.Callba
         }
     }
 
-
     fun updateMe(inx: Float, iny: Float) {
         if (goBack == true) {
             val intent = Intent(context, MainActivity::class.java).apply {
             }
+            backgroundplayer.stop()
             startActivity(context, intent, Bundle.EMPTY)
         }
         lastGx += 1 - inx
@@ -240,12 +254,14 @@ class GroundView(context: Context?) : SurfaceView(context), SurfaceHolder.Callba
             saveScore()
             val intent = Intent(context, GameOverActivity::class.java).apply {
             }
+            backgroundplayer.stop()
             startActivity(context, intent, Bundle.EMPTY)
         }
         if (score >= 10) {
             saveScore()
             val intent = Intent(context, GameWonActivity::class.java).apply {
             }
+            backgroundplayer.stop()
             startActivity(context, intent, Bundle.EMPTY)
         }
 

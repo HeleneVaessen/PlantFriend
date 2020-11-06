@@ -111,15 +111,16 @@
 
     <TextView
         android:id="@+id/txtDeadText"
-        android:layout_width="435dp"
-        android:layout_height="61dp"
-        android:layout_marginStart="104dp"
-        android:layout_marginBottom="100dp"
+        android:layout_width="197dp"
+        android:layout_height="36dp"
+        android:layout_marginBottom="112dp"
         android:text="Cause of death: you"
         android:textColor="#FFFFFF"
         android:textSize="22sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toStartOf="@+id/view12"
+        app:layout_constraintHorizontal_bias="0.546"
+        app:layout_constraintStart_toEndOf="@+id/view12" />
 
     <TextView
         android:id="@+id/txtTime"
